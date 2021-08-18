@@ -1,0 +1,160 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+
+{#    {% if socialaccount_providers %}#}
+{#        <p>{% blocktrans with site.name as site_name %}Please sign in with one#}
+{#            of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>#}
+{#            for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>#}
+{##}
+{#        <div class="socialaccount_ballot">#}
+{##}
+{#            <ul class="socialaccount_providers">#}
+{#                {% include "socialaccount/snippets/provider_list.html" with process="login" %}#}
+{#            </ul>#}
+{##}
+{#            <div class="login-or">{% trans 'or' %}</div>#}
+{##}
+{#        </div>#}
+{##}
+{#        {% include "socialaccount/snippets/login_extra.html" %}#}
+{##}
+{#    {% else %}#}
+{#        <p>{% blocktrans %}If you have not created an account yet, then please#}
+{#            <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>#}
+{#    {% endif %}#}
+
+    <section data-template="account" class="section-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-6 col-lg-5 mx-auto text-center">
+                    <div id="accountTabs" data-account-tabs="">
+                        <ul role="tablist" class="nav nav-pills justify-content-center">
+                            <li class="nav-item"><a data-toggle="tab" href="#login" role="tab" class="nav-link active">Login</a>
+                            </li>
+                            <li class="nav-item"><a data-toggle="tab" href="#register" role="tab" class="nav-link">Create
+                                Account</a></li>
+                        </ul>
+                        <div id="accountTabsContent" class="tab-content text-left">
+                            <div id="login" role="tabpanel" class="tab-pane fade show active">
+                                <div class="pt-5">
+                                    <div id="customerLoginForm" data-login-form="">
+                                        <div class="wrapper">
+                                            <form method="POST" action="{% url 'account_login' %}" id="customer_login" accept-charset="UTF-8">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                                {% if redirect_field_value %}
+                                                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                                                {% endif %}
+{#                                                <a class="btn btn-primary btn-block" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
+                                                <button class="btn btn-primary btn-block" type="submit">{% trans "Sign In" %}</button>
+                                                <p class="text-right mt-2 font-italic">
+                                                    <a data-recover-link="{% url 'account_reset_password' %}" href="#recover">Forgot your password?</a>
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div id="customerRecoverForm" data-recover-form="" class="collapse">
+                                        <form method="post" action="/account/recover" accept-charset="UTF-8"><input
+                                                type="hidden" name="form_type" value="recover_customer_password"><input
+                                                type="hidden" name="utf8" value="✓">
+                                            <p class="text-center">Fill-in your password and we will send you an email
+                                                with instructions to reset it.</p>
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend"><label for="resetCustomerEmail"
+                                                                                        class="input-group-text"><i
+                                                        class="material-icons">mail</i></label></div>
+                                                <input type="email" value="" id="resetCustomerEmail" name="email"
+                                                       aria-label="email" placeholder="Email" required="required"
+                                                       class="form-control"></div>
+                                            <input type="submit" value="Submit" class="btn btn-primary btn-block">
+                                            <p class="text-right mt-2 font-italic"><a href="#"
+                                                                                      data-cancel-recover-link=""
+                                                                                      rel="nofollow" aria-label="Cancel"
+                                                                                      title="Cancel">Cancel</a></p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="register" role="tabpanel" class="tab-pane fade">
+                                <div class="pt-5">
+                                    <div id="customerRegisterForm" data-register-form="">
+                                        <form method="post" action="{% url 'account_signup' %}" id="create_customer" accept-charset="UTF-8">
+                                            {% csrf_token %}
+                                            {{ form.as_p }}
+                                            {% if redirect_field_value %}
+                                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-primary btn-block">{% trans "Sign Up" %} &raquo;</button>
+
+                                            <input type="hidden" name="form_type" value="create_customer">
+                                            <input type="hidden" name="utf8" value="✓">
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="registerCustomerFirstName" class="input-group-text">
+                                                        <i class="material-icons">person</i>
+                                                    </label>
+                                                </div>
+                                                <input type="text" id="registerCustomerFirstName"
+                                                       name="customer[first_name]" aria-label="first name"
+                                                       placeholder="First Name" required="required"
+                                                       class="form-control ">
+                                                <input type="text" id="customerLastName"
+                                                                                     name="customer[last_name]"
+                                                                                     aria-label="last name"
+                                                                                     placeholder="Last Name"
+                                                                                     required="required"
+                                                                                     class="form-control border-left-0">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <label for="registerCustomerEmail" class="input-group-text">
+                                                        <i class="material-icons">mail</i>
+                                                    </label>
+                                                </div>
+                                                <input type="email" id="registerCustomerEmail" name="customer[email]"
+                                                       aria-label="email" placeholder="Email" autocorrect="off"
+                                                       autocapitalize="off" required="required" class="form-control ">
+                                            </div>
+                                            <div class="form-group input-group pass-strength-visible">
+                                                <div class="input-group-prepend"><label for="registerCustomerPassword"
+                                                                                        class="input-group-text"><i
+                                                        class="material-icons">fingerprint</i></label></div>
+                                                <input type="password" id="registerCustomerPassword"
+                                                       data-password-input="" name="customer[password]"
+                                                       aria-label="password" placeholder="Password" required="required"
+                                                       class="form-control ">
+                                                <div class="pass-wrapper" style="">
+                                                    <div class="pass-graybar">
+                                                        <div class="pass-colorbar"
+                                                             style="background-position: 0px -75px; width: 75%;"></div>
+                                                    </div>
+                                                    <span class="pass-text">Strong password</span></div>
+                                            </div>
+                                            <div class="form-check mb-4">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" name="customer[accepts_marketing]" aria-label="newsletter subscription" checked="checked"
+                                                    class="form-check-input">
+                                                <input type="hidden" name="customer[accepts_marketing]" value="">
+                                                <span class="small">Subscribe to stay updated with new products and offers!</span>
+                                            </label>
+                                            </div>
+                                            <input type="submit" value="Create" class="btn btn-primary btn-block">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

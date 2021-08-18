@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="shopify-section-template-influencers" class="shopify-section">
+        <section data-section-id="template-influencers" class="header-slider ">
+            <div role="tree" data-header-slider="" data-flickity="{
+            &quot;adaptiveHeight&quot;: true,
+            &quot;contain&quot;: false,
+            &quot;wrapAround&quot;: false,
+            &quot;accessibility&quot;: true,
+            &quot;setGallerySize&quot;: false,
+            &quot;dragThreshold&quot;: 20,
+            &quot;lazyLoad&quot;: true,
+
+            &quot;prevNextButtons&quot;: true,
+            &quot;pageDots&quot;: true
+          }" class="carousel tallheight bg-gray-800 flickity-enabled is-draggable" tabindex="0">
+                <div class="flickity-viewport" style="touch-action: pan-y;">
+                    <div class="flickity-slider" style="left: 0px; transform: translateX(0%);"><a href=""
+                                                                                                  role="treeitem"
+                                                                                                  data-block-id="1553596276135"
+                                                                                                  data-slide-type="image"
+                                                                                                  class="carousel-cell is-selected"
+                                                                                                  style="position: absolute; left: 0%;"><span
+                            class=" d-none d-sm-block "><img alt="" class="main-image flickity-lazyloaded"
+                                                             src="//cdn.shopify.com/s/files/1/2788/8404/files/Irving-Bunker_Branding_Website_Cover_Images_1500x500_9d115f14-ea2e-4655-9784-f52a87950ff6_1920x.progressive.png.jpg?v=1551722281"></span>
+                        <span class=" d-block d-sm-none "><img alt="" class="main-image flickity-lazyloaded"
+                                                               src="//cdn.shopify.com/s/files/1/2788/8404/files/April_2019_Bunker_Mobile_HomePageHeaders_900x1280_NickIrving-min_800x.progressive.jpg?v=1554674918"></span></a><a
+                            href="" role="treeitem" data-block-id="1553596368815" data-slide-type="image"
+                            class="carousel-cell" aria-hidden="true" style="position: absolute; left: 100%;"><span
+                            class=" d-none d-sm-block "><img
+                            data-flickity-lazyload="//cdn.shopify.com/s/files/1/2788/8404/files/Joe-2019_BUNKER_Website-Cover-Image_1500x500_R3_1920x.progressive.png.jpg?v=1550865660"
+                            alt="" class="main-image"></span> <span class=" d-block d-sm-none "><img
+                            data-flickity-lazyload="//cdn.shopify.com/s/files/1/2788/8404/files/Robinet_800x.progressive.jpg?v=1554739924"
+                            alt="" class="main-image"></span></a><a href="" role="treeitem"
+                                                                    data-block-id="1553596458589"
+                                                                    data-slide-type="image" class="carousel-cell"
+                                                                    aria-hidden="true"
+                                                                    style="position: absolute; left: 200%;"><span
+                            class=" d-none d-sm-block "><img
+                            data-flickity-lazyload="//cdn.shopify.com/s/files/1/2788/8404/files/Adam-2019_BUNKER_Website-Cover-Image_1500x500_R3_1920x.progressive.png.jpg?v=1550864963"
+                            alt="" class="main-image"></span> <span class=" d-block d-sm-none "><img
+                            data-flickity-lazyload="//cdn.shopify.com/s/files/1/2788/8404/files/April_2019_Bunker_Mobile_HomePageHeaders_900x1280_AdamGlick-min_800x.progressive.jpg?v=1554727259"
+                            alt="" class="main-image"></span></a></div>
+                </div>
+                <button class="flickity-button flickity-prev-next-button previous" type="button" disabled=""
+                        aria-label="Previous">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100">
+                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path>
+                    </svg>
+                </button>
+                <button class="flickity-button flickity-prev-next-button next" type="button" aria-label="Next">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100">
+                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"
+                              transform="translate(100, 100) rotate(180) "></path>
+                    </svg>
+                </button>
+                <ol class="flickity-page-dots">
+                    <li class="dot is-selected" aria-label="Page dot 1" aria-current="step"></li>
+                    <li class="dot" aria-label="Page dot 2"></li>
+                    <li class="dot" aria-label="Page dot 3"></li>
+                </ol>
+            </div>
+        </section>
+        <section data-template="influencers" class="template-influencers section-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center"><h1 class="mb-4">Blogers</h1></div>
+                </div>
+                <div class="row influencers-listing">
+                    {% for foo in blogers %}
+                    <a href="{{ foo.get_absolute_url }}" class="col-12 col-md-6 col-lg-6">
+                        <div class="item my-3">
+                            <img src="{{ foo.general_image.url }}" class="img-fluid img-bg">
+                            <img src="" class="img-fluid img-logo">
+                            <div class="overlay"></div>
+                        </div>
+                    </a>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

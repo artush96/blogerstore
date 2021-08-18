@@ -1,0 +1,639 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <div id="shopify-section-index-header-slider" class="shopify-section">
+        <section data-section-id="index-header-slider" class="header-slider ">
+            <div role="tree" data-header-slider="" data-flickity-hero=""
+                 class="carousel tallheight bg-gray-800 flickity-enabled is-draggable" tabindex="0">
+                <div class="flickity-viewport" style="touch-action: pan-y;">
+                    <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">
+                        <a href="#" role="treeitem"
+                           data-block-id="1563315873249" data-slide-type="image" class="carousel-cell is-selected"
+                           style="position: absolute; left: 0%;">
+                            <span class="d-block">
+                                <img class="main-image flickity-lazyloaded" src="">
+                            </span>
+                            <div class="overlay" style="background-color: rgb(0, 0, 0) !important; opacity: 0.5 !important;"></div>
+                        </a>
+                    </div>
+                </div>
+                <button class="flickity-button flickity-prev-next-button previous" type="button" disabled=""
+                        aria-label="Previous">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100">
+                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path>
+                    </svg>
+                </button>
+                <button class="flickity-button flickity-prev-next-button next" type="button" aria-label="Next">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100">
+                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"
+                              transform="translate(100, 100) rotate(180) "></path>
+                    </svg>
+                </button>
+                <ol class="flickity-page-dots">
+                    <li class="dot is-selected" aria-label="Page dot 1" aria-current="step"></li>
+                    <li class="dot" aria-label="Page dot 2"></li>
+                    <li class="dot" aria-label="Page dot 3"></li>
+                    <li class="dot" aria-label="Page dot 4"></li>
+                    <li class="dot" aria-label="Page dot 5"></li>
+                    <li class="dot" aria-label="Page dot 6"></li>
+                    <li class="dot" aria-label="Page dot 7"></li>
+                    <li class="dot" aria-label="Page dot 8"></li>
+                </ol>
+            </div>
+        </section>
+    </div>
+    <div id="shopify-section-1511810149210" class="shopify-section index-featured-collectiion">
+        <section data-section-id="1511810149210" data-grid-type="" class="section-content"
+                 style="background-color: rgba(0, 0, 0, 0); color: rgb(51, 51, 51);">
+            <div class="container-fluid container-max-width mt-3">
+                <div class="row">
+                    <div class="col-12"><a href="{% url 'shop:new_arrivals' %}" class="h2 section-title mb-0">New
+                        Arrivals</a></div>
+                </div>
+                <div class="row">
+
+
+                    {% for foo in product %}
+                        <div class="card-column col-6 col-sm-6 col-md-4 col-lg-3 w-20 my-3 d-flex align-items-stretch justify-content-around">
+                            <a href="{% url 'shop:product_detail' foo.id %}"
+                               class="card border-0 shadow-none card-product text-left">
+                                {% if foo.sale_on == True %}
+                                    <span class="badges">
+                                <span class="badge badge-warning">On Sale</span>
+                            </span>
+                                {% endif %}
+                                <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                    <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                </div>
+                                <div class="card-body p-2">
+                                    <div class="row no-gutters">
+                                        <div class="col-12">
+                                            <h6 class="vendor mt-2">{{ foo.bloger }}</h6>
+                                            <h6 class="title my-2">{{ foo.name }}</h6>
+                                            {% if foo.sale_on == True %}
+                                                <s class="price m-0 p-0">{{ foo.price }}р.</s>
+                                                <span class="price m-0 p-0">{{ foo.sale }}р.</span>
+                                            {% elif foo.sale_on == False %}
+                                                <span class="price m-0 p-0">{{ foo.price }}р.</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center"><a href="{% url 'shop:new_arrivals' %}"
+                                                       class="btn btn-primary mt-3 mb-1">View All</a></div>
+                </div>
+                <hr>
+            </div>
+        </section>
+    </div>
+    <div id="shopify-section-1541664975051" class="shopify-section index-featured-collectiion">
+        <section data-section-id="1541664975051" data-grid-type="" class="section-content"
+                 style="background-color: rgba(0, 0, 0, 0); color: rgb(51, 51, 51);">
+            <div class="container-fluid container-max-width mt-3">
+                <div class="row">
+                    <div class="col-12"><a href="{% url 'shop:featured_products' %}" class="h2 section-title mb-0">Featured
+                        Products</a></div>
+                </div>
+                <div class="row">
+                    {% for foo in product %}
+                        {% if foo.featured == True %}
+
+
+                            <div class="card-column col-6 col-sm-6 col-md-4 col-lg-3 w-20 my-3 d-flex align-items-stretch justify-content-around">
+                                <a href="{% url 'shop:product_detail' foo.id %}"
+                                   class="card border-0 shadow-none card-product text-left">
+                                    {% if foo.sale_on == True %}
+                                        <span class="badges">
+                                <span class="badge badge-warning">On Sale</span>
+                            </span>
+                                    {% endif %}
+                                    <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                        <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="row no-gutters">
+                                            <div class="col-12">
+                                                <h6 class="vendor mt-2">{{ foo.bloger }}</h6>
+                                                <h6 class="title my-2">{{ foo.name }}</h6>
+                                                {% if foo.sale_on == True %}
+                                                    <s class="price m-0 p-0">{{ foo.price }}р.</s>
+                                                    <span class="price m-0 p-0">{{ foo.sale }}р.</span>
+                                                {% elif foo.sale_on == False %}
+                                                    <span class="price m-0 p-0">{{ foo.price }}р.</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a href="{% url 'shop:featured_products' %}" class="btn btn-primary mt-3 mb-1">View All</a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </section>
+    </div>
+        <div id="shopify-section-1541665444238" class="shopify-section index-featured-collectiion">
+            <section data-section-id="1541665444238" data-grid-type="" class="section-content"
+                     style="background-color: rgba(0, 0, 0, 0); color: rgb(51, 51, 51);">
+                <div class="container-fluid container-max-width mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="{% url 'bloger:bloger_products_p' %}" class="h2 section-title mb-0">Bloger Store</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for foo in blogerproduct %}
+                                <div class="card-column col-6 col-sm-6 col-md-4 col-lg-3 w-20 my-3 d-flex align-items-stretch justify-content-around">
+                                    <a href="{% url 'bloger:product_detail_p' slug=foo.slug %}"
+                                       class="card border-0 shadow-none card-product text-left">
+                                        {% if foo.sale_on == True %}
+                                            <span class="badges">
+                                <span class="badge badge-warning">On Sale</span>
+                            </span>
+                                        {% endif %}
+                                        <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                            <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <div class="row no-gutters">
+                                                <div class="col-12">
+                                                    <h6 class="vendor mt-2">{{ foo.bloger }}</h6>
+                                                    <h6 class="title my-2">{{ foo.name }}</h6>
+                                                    {% if foo.sale_on == True %}
+                                                        <s class="price m-0 p-0">{{ foo.price }}р.</s>
+                                                        <span class="price m-0 p-0">{{ foo.sale }}р.</span>
+                                                    {% elif foo.sale_on == False %}
+                                                        <span class="price m-0 p-0">{{ foo.price }}р.</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <a href="{% url 'bloger:bloger_products_p' %}" class="btn btn-primary mt-3 mb-1">View All</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </section>
+        </div>
+{#    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/B0ZC7SAp2QA/">#}
+{#        <div style="padding:16px;">#}
+{#            <a href="https://www.instagram.com/p/B0dp3hXpgqS/"#}
+{#                                      style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"#}
+{#                                      target="_blank">#}
+{#            <div style=" display: flex; flex-direction: row; align-items: center;">#}
+{#                <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div>#}
+{#                <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">#}
+{#                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div>#}
+{#                    <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div style="padding: 19% 0;"></div>#}
+{#            <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">#}
+{#                <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"#}
+{#                     xmlns:xlink="https://www.w3.org/1999/xlink">#}
+{#                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">#}
+{#                        <g transform="translate(-511.000000, -20.000000)" fill="#000000">#}
+{#                            <g>#}
+{#                                <path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path>#}
+{#                            </g>#}
+{#                        </g>#}
+{#                    </g>#}
+{#                </svg>#}
+{#            </div>#}
+{#            <div style="padding-top: 8px;">#}
+{#                <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">#}
+{#                    Посмотреть эту публикацию в Instagram#}
+{#                </div>#}
+{#            </div>#}
+{#            <div style="padding: 12.5% 0;"></div>#}
+{#            <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">#}
+{#                <div>#}
+{#                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div>#}
+{#                    <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div>#}
+{#                    <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div>#}
+{#                </div>#}
+{#                <div style="margin-left: 8px;">#}
+{#                    <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div>#}
+{#                    <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div>#}
+{#                </div>#}
+{#                <div style="margin-left: auto;">#}
+{#                    <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div>#}
+{#                    <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div>#}
+{#                    <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </a>#}
+{#            <p style=" margin:8px 0 0 0; padding:0 4px;"><a href="https://www.instagram.com/p/B0dp3hXpgqS/"#}
+{#                                                            style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;"#}
+{#                                                            target="_blank">#aliyayalaya Как у вас дела?❤️#}
+{#                Рассказывайте! Я постою послушаю😆</a></p>#}
+{#            <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">#}
+{#                Публикация от <a href="https://www.instagram.com/aliya_yalaya/"#}
+{#                                 style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;"#}
+{#                                 target="_blank"> Model/Singer/Artist</a> (@aliya_yalaya)#}
+{#                <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;"#}
+{#                      datetime="2019-07-28T14:12:34+00:00">28 Июл 2019 в 7:12 PDT#}
+{#                </time>#}
+{#            </p>#}
+{#        </div>#}
+{#    </blockquote>#}
+{#    <script async src="//www.instagram.com/embed.js"></script>#}
+{#        <div id="shopify-section-1541671576269" class="shopify-section index-instagram-feed">#}
+{#            <section data-section-id="1541671576269" class="section-instagram-feed " style="color: rgb(51, 51, 51);">#}
+{#                <div class="container-fluid container-max-width">#}
+{#                    <div class="row">#}
+{#                        <div class="col"><h2 class="section-title"><img#}
+{#                                src="//cdn2.shopify.com/s/files/1/2788/8404/t/32/assets/ig_glyph_fill.jpg?80395" width="46"#}
+{#                                class="mr-1" style="position: relative; top: -3px;"> Instagram</h2></div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col">#}
+{#                            <div class="instafeed-wrapper">#}
+{#                                <div data-is="" data-is-access-token="7063169520.5346f23.4715c227dd0c466eb7b0d9734a943ae3"#}
+{#                                     data-is-source="" data-is-columns="5" data-is-rows="1" data-is-gutter="30" id="eapps-instagram-feed-1" style="position: relative; clear: both;">#}
+{#                                    <div class="eapps-instagram-feed eapps-widget">#}
+{#                                        <div class="eapps-instagram-feed-title-container"></div>#}
+{##}
+{#                                        <div class="eapps-instagram-feed-content">#}
+{#                                            <div class="eapps-instagram-feed-posts-container">#}
+{#                                                <div class="eapps-instagram-feed-posts-slider eapps-instagram-feed-posts eui-slider eapps-instagram-feed-posts-small">#}
+{#                                                    <div class="eapps-instagram-feed-posts-slider-inner eapps-instagram-feed-posts-inner eui-slider-inner"#}
+{#                                                         style="min-height: 0px;">#}
+{#                                                        <div class="eapps-instagram-feed-posts-view eui-slider-slide"#}
+{#                                                             style="padding: 15px;">#}
+{#                                                            <div class="eapps-instagram-feed-posts-item-template-tile eapps-instagram-feed-posts-item eapps-instagram-feed-posts-item-type-image eapps-instagram-feed-posts-item-visible eapps-instagram-feed-posts-item-image-landscape eapps-instagram-feed-posts-item-loaded"#}
+{#                                                                 style="width: calc(20% - 30px); margin: 15px;">#}
+{#                                                                <a class="eapps-instagram-feed-posts-item-link"#}
+{#                                                                   href="https://www.instagram.com/p/B0ZC7SAp2QA/"#}
+{#                                                                   target="_blank" rel="nofollow">#}
+{#                                                                    <div class="eapps-instagram-feed-posts-item-media">#}
+{#                                                                        <div class="eapps-instagram-feed-posts-item-image-wrapper">#}
+{#                                                                            <img class="eapps-instagram-feed-posts-item-image"#}
+{#                                                                                 src="">#}
+{##}
+{#                                                                            <span class="eapps-instagram-feed-posts-item-image-icon-video eapps-instagram-feed-posts-item-image-icon">#}
+{#            <svg viewBox="0 0 24 24">#}
+{#                <path d="M23.467,5.762c-0.118-0.045-0.232-0.068-0.342-0.068c-0.246,0-0.451,0.087-0.615,0.26l-3.76,3.217v5.766l3.76,3.578c0.164,0.173,0.369,0.26,0.615,0.26c0.109,0,0.223-0.023,0.342-0.068C23.822,18.552,24,18.284,24,17.901V6.57C24,6.186,23.822,5.917,23.467,5.762z"></path>#}
+{#                <path d="M16.33,4.412c-0.77-0.769-1.696-1.154-2.78-1.154H3.934c-1.084,0-2.01,0.385-2.78,1.154C0.385,5.182,0,6.108,0,7.192v9.616c0,1.084,0.385,2.01,1.154,2.78c0.77,0.77,1.696,1.154,2.78,1.154h9.616c1.084,0,2.01-0.385,2.78-1.154c0.77-0.77,1.154-1.696,1.154-2.78v-3.076v-3.478V7.192C17.484,6.108,17.099,5.182,16.33,4.412z M8.742,17.229c-2.888,0-5.229-2.341-5.229-5.229c0-2.888,2.341-5.229,5.229-5.229S13.971,9.112,13.971,12C13.971,14.888,11.63,17.229,8.742,17.229z"></path>#}
+{#                <circle cx="8.742" cy="12" r="3.5"></circle>#}
+{#            </svg>#}
+{#        </span>#}
+{##}
+{#                                                                            <span class="eapps-instagram-feed-posts-item-image-icon-carousel eapps-instagram-feed-posts-item-image-icon">#}
+{#            <svg viewBox="0 0 45.964 45.964">#}
+{#                <path d="M32.399,40.565H11.113v1.297c0,2.24,1.838,4.051,4.076,4.051h26.733c2.239,0,4.042-1.811,4.042-4.051V15.13c0-2.237-1.803-4.068-4.042-4.068h-1.415v21.395C40.507,36.904,36.845,40.566,32.399,40.565z"></path>#}
+{#                <path d="M0,4.102l0,28.355c0,2.241,1.814,4.067,4.051,4.067h28.365c2.237,0,4.066-1.826,4.066-4.067l0-28.356c0-2.238-1.828-4.051-4.066-4.051H4.051C1.814,0.05,0,1.862,0,4.102z"></path>#}
+{#            </svg>#}
+{#        </span>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{##}
+{##}
+{#                                                                    <div class="eapps-instagram-feed-posts-item-overlay">#}
+{#                                                                        <div class="eapps-instagram-feed-posts-item-content eapps-instagram-feed-posts-item-content-cropped">#}
+{##}
+{#                                                                            <div class="eapps-instagram-feed-posts-item-counters">#}
+{##}
+{#                                                                                <div class="eapps-instagram-feed-posts-item-likes-count">#}
+{#                                                                                    <svg class="eapps-instagram-feed-posts-item-likes-count-icon"#}
+{#                                                                                         viewBox="0 0 24 24">#}
+{#                                                                                        <path d="M17.7,1.5c-2,0-3.3,0.5-4.9,2.1c0,0-0.4,0.4-0.7,0.7c-0.3-0.3-0.7-0.7-0.7-0.7c-1.6-1.6-3-2.1-5-2.1C2.6,1.5,0,4.6,0,8.3#}
+{#            c0,4.2,3.4,7.1,8.6,11.5c0.9,0.8,1.9,1.6,2.9,2.5c0.1,0.1,0.3,0.2,0.5,0.2s0.3-0.1,0.5-0.2c1.1-1,2.1-1.8,3.1-2.7#}
+{#            c4.8-4.1,8.5-7.1,8.5-11.4C24,4.6,21.4,1.5,17.7,1.5z M14.6,18.6c-0.8,0.7-1.7,1.5-2.6,2.3c-0.9-0.7-1.7-1.4-2.5-2.1#}
+{#            c-5-4.2-8.1-6.9-8.1-10.5c0-3.1,2.1-5.5,4.9-5.5c1.5,0,2.6,0.3,3.8,1.5c1,1,1.2,1.2,1.2,1.2C11.6,5.9,11.7,6,12,6.1#}
+{#            c0.3,0,0.5-0.2,0.7-0.4c0,0,0.2-0.2,1.2-1.3c1.3-1.3,2.1-1.5,3.8-1.5c2.8,0,4.9,2.4,4.9,5.5C22.6,11.9,19.4,14.6,14.6,18.6z"></path>#}
+{#                                                                                    </svg>#}
+{##}
+{#                                                                                    <div class="eapps-instagram-feed-posts-item-likes-count-label">#}
+{#                                                                                        6.6K#}
+{#                                                                                    </div>#}
+{#                                                                                </div>#}
+{##}
+{##}
+{#                                                                                <div class="eapps-instagram-feed-posts-item-comments-count">#}
+{#                                                                                    <svg class="eapps-instagram-feed-posts-item-comments-count-icon"#}
+{#                                                                                         viewBox="0 0 24 24">#}
+{#                                                                                        <path d="M1,11.9C1,17.9,5.8,23,12,23c1.9,0,3.7-1,5.3-1.8l5,1.3l0,0c0.1,0,0.1,0,0.2,0c0.4,0,0.6-0.3,0.6-0.6c0-0.1,0-0.1,0-0.2#}
+{#            l-1.3-4.9c0.9-1.6,1.4-2.9,1.4-4.8C23,5.8,18,1,12,1C5.9,1,1,5.9,1,11.9z M2.4,11.9c0-5.2,4.3-9.5,9.5-9.5c5.3,0,9.6,4.2,9.6,9.5#}
+{#            c0,1.7-0.5,3-1.3,4.4l0,0c-0.1,0.1-0.1,0.2-0.1,0.3c0,0.1,0,0.1,0,0.1l0,0l1.1,4.1l-4.1-1.1l0,0c-0.1,0-0.1,0-0.2,0#}
+{#            c-0.1,0-0.2,0-0.3,0.1l0,0c-1.4,0.8-3.1,1.8-4.8,1.8C6.7,21.6,2.4,17.2,2.4,11.9z"></path>#}
+{#                                                                                    </svg>#}
+{##}
+{#                                                                                    <div class="eapps-instagram-feed-posts-item-comments-count-label">#}
+{#                                                                                        65#}
+{#                                                                                    </div>#}
+{#                                                                                </div>#}
+{##}
+{#                                                                            </div>#}
+{##}
+{##}
+{#                                                                            <div class="eapps-instagram-feed-posts-item-text">#}
+{#                                                                                😎We found a few extra Demolition Ranch#}
+{#                                                                                Sunglasses by Shadetree! Don’t wait too#}
+{#                                                                                long, you might miss your chance to grab a#}
+{#                                                                                pair! #sunglasses #demolitia#}
+{#                                                                                #demolitionranch #shades #dontmissthis#}
+{#                                                                                #shopnow #bunkerbrandingco#}
+{#                                                                            </div>#}
+{##}
+{#                                                                            <div class="eapps-instagram-feed-posts-item-text eapps-instagram-feed-posts-item-text-clone">#}
+{#                                                                                😎We found a few extra Demolition Ranch#}
+{#                                                                                Sunglasses by Shadetree! Don’t wait too#}
+{#                                                                                long, you might miss your chance to grab a#}
+{#                                                                                pair! #sunglasses #demolitia#}
+{#                                                                                #demolitionranch #shades #dontmissthis#}
+{#                                                                                #shopnow #bunkerbrandingco#}
+{#                                                                            </div>#}
+{#                                                                        </div>#}
+{#                                                                    </div>#}
+{##}
+{##}
+{#                                                                    <div class="eapps-instagram-feed-posts-item-red-like-container"></div>#}
+{##}
+{#                                                                </a>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="eapps-instagram-feed-posts-slider-prev eapps-instagram-feed-posts-slider-nav eui-slider-arrow-prev eui-slider-arrow">#}
+{#                                                        <svg viewBox="4 0 8 16" width="12" height="16"#}
+{#                                                             class="eapps-instagram-feed-posts-slider-nav-icon">#}
+{#                                                            <path d="M4.3,8.7l6,5.9c0.4,0.4,1.1,0.4,1.5,0c0.4-0.4,0.4-1.1,0-1.5L6.5,8l5.2-5.2c0.4-0.4,0.4-1.1,0-1.5#}
+{#            c-0.4-0.4-1.1-0.4-1.5,0l-6,6C3.9,7.7,3.9,8.3,4.3,8.7z"></path>#}
+{#                                                        </svg>#}
+{#                                                    </div>#}
+{##}
+{#                                                    <div class="eapps-instagram-feed-posts-slider-next eapps-instagram-feed-posts-slider-nav eui-slider-arrow-next eui-slider-arrow eui-slider-arrow-enabled">#}
+{#                                                        <svg viewBox="4 0 8 16" width="12" height="16"#}
+{#                                                             class="eapps-instagram-feed-posts-slider-nav-icon">#}
+{#                                                            <path d="M11.7,7.3l-6-5.9c-0.4-0.4-1.1-0.4-1.5,0c-0.4,0.4-0.4,1.1,0,1.5L9.5,8l-5.2,5.2#}
+{#            c-0.4,0.4-0.4,1.1,0,1.5c0.4,0.4,1.1,0.4,1.5,0l6-6C12.1,8.3,12.1,7.7,11.7,7.3z"></path>#}
+{#                                                        </svg>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                            <div class="eapps-instagram-feed-error-container"></div>#}
+{##}
+{#                                            <div class="eapps-instagram-feed-content-loader eapps-instagram-feed-loader"></div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <style>#}
+{##}
+{#                                        #eapps-instagram-feed-1 {#}
+{#                                            width: 100%;#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-template-classic {#}
+{#                                            background: rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-user-image {#}
+{#                                            box-shadow: 0 0 0 2px rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-content,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-text,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item a,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item a:hover {#}
+{#                                            color: rgb(0, 0, 0);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-content a,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-content a:hover {#}
+{#                                            color: rgb(0, 53, 105);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-overlay .eapps-instagram-feed-posts-item-content,#}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-overlay .eapps-instagram-feed-posts-item-text {#}
+{#                                            color: rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-item-overlay {#}
+{#                                            background: rgba(0, 0, 0, 0.8);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-slider-nav-icon {#}
+{#                                            fill: rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-slider-nav {#}
+{#                                            background: rgba(0, 0, 0, 0.9);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-1 .eapps-instagram-feed-posts-grid-load-more {#}
+{#                                            background: rgb(56, 151, 240);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 {#}
+{#                                            background: rgba(43, 43, 43, 0.9);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item {#}
+{#                                            background: rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-posts-item-user-image {#}
+{#                                            box-shadow: 0 0 0 2px rgb(255, 255, 255);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item a,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item a:hover {#}
+{#                                            color: rgb(0, 0, 0);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-text a:not(.eapps-instagram-feed-popup-item-text-author),#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-text a:not(.eapps-instagram-feed-popup-item-text-author):hover,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-comments-item-text a,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-comments-item-text a:hover {#}
+{#                                            color: rgb(0, 53, 105);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item .eapps-instagram-feed-posts-item-user-follow-link a,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item .eapps-instagram-feed-posts-item-user-follow-link a:hover {#}
+{#                                            color: rgb(56, 151, 240);#}
+{#                                        }#}
+{##}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 a.eapps-instagram-feed-popup-item-cta-button,#}
+{#                                        #eapps-instagram-feed-popup-1 a.eapps-instagram-feed-popup-item-cta-button:hover {#}
+{#                                            color: rgb(56, 151, 240);#}
+{#                                        }#}
+{##}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-cta-highlighted a.eapps-instagram-feed-popup-item-cta-button,#}
+{#                                        #eapps-instagram-feed-popup-1 .eapps-instagram-feed-popup-item-cta-highlighted a.eapps-instagram-feed-popup-item-cta-button:hover {#}
+{#                                            background: rgb(56, 151, 240);#}
+{#                                            color: #fff;#}
+{#                                        }#}
+{##}
+{#                                    </style>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </section>#}
+{#        </div>#}
+{#        <div id="shopify-section-1542050351057" class="shopify-section">#}
+{#            <section data-section-id="1542050351057" class="section-content section-testimonials">#}
+{#                <div class="container-fluid container-max-width">#}
+{#                    <div class="row">#}
+{#                        <div class="col"><h2 class="section-title mb-2">Testimonials</h2></div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col">#}
+{#                            <div role="tree" data-flickity="{#}
+{#                  &quot;adaptiveHeight&quot;: true,#}
+{#                  &quot;contain&quot;: false,#}
+{#                  &quot;wrapAround&quot;: true,#}
+{#                  &quot;dragThreshold&quot;: 20,#}
+{#                  &quot;lazyLoad&quot;: false,#}
+{#                  &quot;prevNextButtons&quot;: true,#}
+{#                  &quot;pageDots&quot;: false,#}
+{#                  &quot;initialIndex&quot;: 1#}
+{#                }" class="carousel flickity-enabled is-draggable" tabindex="0">#}
+{#                                <div class="flickity-viewport" style="height: 380px; touch-action: pan-y;">#}
+{#                                    <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">#}
+{#                                        <div class="carousel-cell col-12 col-sm-6 col-lg-4 pb-4"#}
+{#                                             style="position: absolute; left: 0%;" aria-hidden="true">#}
+{#                                            <div class="card my-3">#}
+{#                                                <div class="card-body">#}
+{#                                                    <div><p>"<span style="text-decoration: none;">I ordered a shirt and in about an hour after ordering, I had a shipping confirmation. My shirt got delivered a whole day earlier than expected; only one full business day in between ordering and delivery. Not to mention, customer service is fantastic. Will definitely be buying from them again!</span>"#}
+{#                                                    </p></div>#}
+{#                                                    <div class="d-flex align-items-center"><img#}
+{#                                                            src="//cdn2.shopify.com/s/files/1/2788/8404/files/tod_small.jpg?v=1550000537"#}
+{#                                                            class="avatar mr-3">#}
+{#                                                        <div class="user-text"><p>Tad Scott</p>#}
+{#                                                            <p>Kingsburg, California</p>#}
+{#                                                            <p></p></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="carousel-cell col-12 col-sm-6 col-lg-4 pb-4 is-selected"#}
+{#                                             style="position: absolute; left: 33.33%;">#}
+{#                                            <div class="card my-3">#}
+{#                                                <div class="card-body">#}
+{#                                                    <div><p>"<span style="text-decoration: none;">Just got my first ranchmerch order.....so excited!!!!!.customer service is the best I've ever delt with very professional and genuine..shipping is fast...very affordable. comunication is excellent ...they give email updates all the way to the mailbox...the clothes look awesome and are very comfortable..can't wait to get my next order. #myonlinecloset. #nomore walmart clothes for this guy</span>"#}
+{#                                                    </p></div>#}
+{#                                                    <div class="d-flex align-items-center"><img#}
+{#                                                            src="//cdn2.shopify.com/s/files/1/2788/8404/files/nick_small.jpg?v=1550000666"#}
+{#                                                            class="avatar mr-3">#}
+{#                                                        <div class="user-text"><p>Nicholas Sopko</p>#}
+{#                                                            <p>Plymouth, Pennsylvania</p></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="carousel-cell col-12 col-sm-6 col-lg-4 pb-4" aria-hidden="true"#}
+{#                                             style="position: absolute; left: 66.66%;">#}
+{#                                            <div class="card my-3">#}
+{#                                                <div class="card-body">#}
+{#                                                    <div><p>"<span style="text-decoration: none;">They are an amazing company and amazing people. I would recommend them to everyone. I had a worry about an order one time and they emailed me right away and figured it out they are awesome!</span><span#}
+{#                                                            style="text-decoration: none;">.</span>"</p></div>#}
+{#                                                    <div class="d-flex align-items-center"><img#}
+{#                                                            src="//cdn2.shopify.com/s/files/1/2788/8404/files/jerrika_small.jpg?v=1550000883"#}
+{#                                                            class="avatar mr-3">#}
+{#                                                        <div class="user-text"><p>Jerrika Guild</p>#}
+{#                                                            <p>Neosho, Missouri</p>#}
+{#                                                            <p></p></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="carousel-cell col-12 col-sm-6 col-lg-4 pb-4" aria-hidden="true"#}
+{#                                             style="position: absolute; left: 100%;">#}
+{#                                            <div class="card my-3">#}
+{#                                                <div class="card-body">#}
+{#                                                    <div><p>"<span style="text-decoration: none;">Extremely amazing customer service. I know everyone knows this place from Demo ranch, but its the staff that makes it so amazing. </span><br><span#}
+{#                                                            style="text-decoration: none;"> I wanted to order a shirt to support Mark, and I know it would be a hot item, so i ordered it even though I'm currently in the process of moving from Texas to the northeast U.S. So I was really concerned about not getting this shirt since its arrival would be in the middle of the transit. I reached out to the staff and I have to say. Ms Devin was the most amazing person. She understood my situation and ensured that i got my t-shirt before we moved. She keep in great contact during the process. The t-shirt came in perfect time. I wish all customer service was that amazing and willing to solve issues. She needs a RAISE!</span>"#}
+{#                                                    </p></div>#}
+{#                                                    <div class="d-flex align-items-center"><img#}
+{#                                                            src="//cdn2.shopify.com/s/files/1/2788/8404/files/arlington_small.jpg?v=1550000988"#}
+{#                                                            class="avatar mr-3">#}
+{#                                                        <div class="user-text"><p>Matthew Kunes-Keller</p>#}
+{#                                                            <p>Arlington, Texas</p></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="carousel-cell col-12 col-sm-6 col-lg-4 pb-4" aria-hidden="true"#}
+{#                                             style="position: absolute; left: -33.33%;">#}
+{#                                            <div class="card my-3">#}
+{#                                                <div class="card-body">#}
+{#                                                    <div><p>"<span style="text-decoration: none;">I have loved every single item I have ordered!!! Super great company with impeccable customer service which is SO hard to find these days! Thank you Bunker Branding Co. for being so dang awesome and having mighty fine merch!!! </span><span#}
+{#                                                            style="text-decoration: none;">❤️</span><span#}
+{#                                                            style="text-decoration: none;">🙌</span>"</p></div>#}
+{#                                                    <div class="d-flex align-items-center"><img#}
+{#                                                            src="//cdn2.shopify.com/s/files/1/2788/8404/files/crystal_small.jpg?v=1550001094"#}
+{#                                                            class="avatar mr-3">#}
+{#                                                        <div class="user-text"><p>Crystal Smith Metzler</p></div>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <button class="flickity-button flickity-prev-next-button previous" type="button"#}
+{#                                        aria-label="Previous">#}
+{#                                    <svg class="flickity-button-icon" viewBox="0 0 100 100">#}
+{#                                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path>#}
+{#                                    </svg>#}
+{#                                </button>#}
+{#                                <button class="flickity-button flickity-prev-next-button next" type="button"#}
+{#                                        aria-label="Next">#}
+{#                                    <svg class="flickity-button-icon" viewBox="0 0 100 100">#}
+{#                                        <path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"#}
+{#                                              transform="translate(100, 100) rotate(180) "></path>#}
+{#                                    </svg>#}
+{#                                </button>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </section>#}
+{#        </div>#}
+{#        <div data-template="quickshop" tabindex="-1" role="dialog" id="quickModelOpen" class="modal modal-quickshop fade show" style="display: block; padding-right: 15px;"><div role="document" class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header text-dark"><h5 class="modal-title"><a href="/products/2019-back-to-school-kit">2019 Back to School Kit</a></h5> <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="material-icons">close</i></span></button></div> <div class="modal-body text-dark opened"><div class="row"><div class="col-lg-6"><div class="product-images-wrapper text-center"><img src="//cdn.shopify.com/s/files/1/2788/8404/products/demo-school-supplies-min_400x.jpg?v=1563395364" alt="2019 Back to School Kit" class="img-fluid"></div></div> <div class="col-lg-6"><div class="product-details-wrapper mt-lg-0"><p class="mt-3 mt-lg-0 font-weight-bold">Demolition Ranch</p> <div class="price-wrapper mb-3"><!----> <span class="h5 my-0">$29.99</span></div> <form data-product-form="" action="/cart/add" method="post" enctype="multipart/form-data"><div class="row"><div class="col-12 mb-2 d-flex justify-content-between"><!----> <div data-qty-container="" class="quantity-wrapper"><label for="Quantity">Quantity:</label> <div class="input-group input-group-sm"><div class="input-group-prepend"><a href="#" rel="nofollow" aria-label="Decrease" title="Decrease" data-qty-decrease="" class="input-group-text"><span class="btn-decrease"><i class="material-icons">remove</i></span></a></div> <input type="number" name="quantity" aria-label="quantity" value="1" step="1" min="1" inputmode="numeric" data-qty-input="" readonly="readonly" class="quantity form-control text-center"> <div class="input-group-append"><a href="#" rel="nofollow" aria-label="Increase" title="Increase" data-qty-increase="" class="input-group-text"><span class="btn-increase"><i class="material-icons">add</i></span></a></div></div></div></div></div> <div class="row"><div class="col-12 mb-3"><button type="submit" name="add" class="btn btn-primary btn-block"><span><i class="material-icons"> add_shopping_cart </i> Add to Cart#}
+{#                                  </span></button></div></div></form> <div class="col-12 custom-presale"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></div> <h6 class="mt-3">Description:</h6> <div class="rte"><p>Back To School with&nbsp;<span style="color: #000000;">Demolition Ranch style!</span></p>#}
+{#    <p><span style="color: #ff0000;">USE DISCOUNT CODE <strong>"BACK2SCHOOL"</strong> AND ORDER A...</span></p></div> <a href="/products/2019-back-to-school-kit">Read more <i class="material-icons" style="position: relative; top: 3px;">arrow_forward</i></a> <h6 class="mt-5 mb-2">Share</h6> <ul class="social-sharing list-inline"><li class="list-inline-item"><a href="//www.facebook.com/sharer.php?u=https://www.bunkerbranding.com//products/2019-back-to-school-kit" rel="noopener" target="_blank" title="Share on Facebook"><img src="//cdn.shopify.com/s/files/1/2788/8404/t/32/assets/icon-facebook.svg?80447" width="20" alt="Facebook"></a></li> <li class="list-inline-item"><a href="//twitter.com/share?text=&amp;url=https://www.bunkerbranding.com/products/2019-back-to-school-kit" rel="noopener" target="_blank" title="Share on Twitter"><img src="//cdn.shopify.com/s/files/1/2788/8404/t/32/assets/icon-twitter.svg?80447" width="20" alt="Twitter"></a></li> <li class="list-inline-item"><a href="//pinterest.com/pin/create/button/?url=https://www.bunkerbranding.com&amp;media=//cdn.shopify.com/s/files/1/2788/8404/products/demo-school-supplies-min_large.jpg?v=1563395364&amp;description=2019 Back to School Kit" rel="noopener" target="_blank" title="Share on Pinterest"><img src="//cdn.shopify.com/s/files/1/2788/8404/t/32/assets/icon-pinterest.svg?80447" width="20" alt="Pinterest"></a></li></ul></div></div></div></div> <div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-sm btn-gray-400">#}
+{#              Close#}
+{#            </button></div></div></div></div>#}
+{#        <div data-template="presaleModal" id="presaleModal" tabindex="-1" role="dialog" aria-labelledby="presaleModal" aria-hidden="true" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div> <div class="modal-body"><div class="custom-control custom-checkbox"><input type="checkbox" id="defaultChecked2" class="custom-control-input"> <label for="defaultChecked2" class="custom-control-label">I understand that this is a presale product.</label></div></div> <div class="modal-footer"><!----></div></div></div></div>#}
+
+{% endblock %}

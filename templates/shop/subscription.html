@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="shopify-section-template-contest" class="shopify-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-xl-8">
+                    <div class="row">
+                        <div class="col-12"><img
+                                src="//cdn.shopify.com/s/files/1/2788/8404/files/DEMO_July_Sub_Giveaway_1024x768-min_1024x.jpg?v=1563385282"
+                                class="img-fluid"></div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-8"><img
+                                src="//cdn.shopify.com/s/files/1/2788/8404/files/DEMO_July_Sub_Giveaway_800x600_R3-min_800x.jpg?v=1563483692"
+                                class="img-fluid"></div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12"><img
+                                        src="//cdn.shopify.com/s/files/1/2788/8404/files/DEMO_July_Sub_Giveaway_640x480_ImageTwo-min_640x.jpg?v=1563385309"
+                                        class="img-fluid"></div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12"><img
+                                        src="//cdn.shopify.com/s/files/1/2788/8404/files/DEMO_July_Sub_Giveaway_640x480_ImageOne-min_640x.jpg?v=1563385323"
+                                        class="img-fluid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4">
+                    <div class="inner sticky-top p-4" style="top: 120px;">
+                        <p>{{ foo.description }}</p>
+                        <a href="#subscriptions" class="btn btn-primary btn-large btn-block mt-4">
+                            Choose Your Subscription
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="subscriptions" class="row mt-5">
+                <div class="col-lg-7 col-xl-8"><h3 class="mb-3 text-center">CHOOSE YOUR SUBSCRIPTION</h3>
+                    <div class="row d-flex align-items-center ">
+                        {% for foo in subscrib %}
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+                                <a href="{% url 'shop:subscrib_detail' foo.id %}"
+                                   class="card border-0 shadow-none card-product text-left">
+                                    <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                        <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="row no-gutters">
+                                            <div class="col-12 text-center">
+                                                <h3 class="text-success">
+                                                    {{ foo.name }}
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-5 col-lg-5 col-xl-4"><img
+                        src="https://cdn2.shopify.com/s/files/1/2788/8404/products/How_it_Works_33ed5b43-4d17-42be-9d0c-4221c85a3e6c_1280x.jpg?v=1558652720"
+                        class="img-fluid"></div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-8 col-lg-5 col-xl-4 mx-auto text-center"><a href="" data-toggle="modal"
+                                                                               data-target="#modalContest">
+                    Submit Your Entry for Free
+                </a></div>
+            </div>
+        </div>
+        <section class="section-content">
+            <div class="container">
+                <div class="row mt-4">
+                    <div class="col text-center"><h3 class="mb-3">Stuff our Lawyers want you to read</h3>
+                        <ul class="nav nav-pills nav-fill">
+                            <li class="nav-item m-1"><a href="/pages/competition-rules" class="nav-link border">Competition
+                                Rules </a></li>
+                            <li class="nav-item m-1"><a href="/pages/terms-of-service" class="nav-link border">Terms of
+                                Service</a></li>
+                            <li class="nav-item m-1"><a href="/pages/privacy-policy" class="nav-link border">Privacy
+                                Policy</a></li>
+                            <li class="nav-item m-1"><a href="/pages/return-policy" class="nav-link border">Return
+                                Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="modalContest" tabindex="-1" role="dialog" aria-labelledby="modalContest" class="modal fade"
+             style="display: none;" aria-hidden="true">
+            <div role="document" class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><h4 class="modal-title">Submit your Competition Entry</h4>
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><i
+                                class="material-icons">close</i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="5Uc_O7vEDVF_wi6s9hO4Vw" class="pxFormGenerator" style="margin: 10px auto 0px;">
+                            <iframe src="https://formbuilder.hulkapps.com/corepage/customform?id=5Uc_O7vEDVF_wi6s9hO4Vw"
+                                    id="frame_5Uc_O7vEDVF_wi6s9hO4Vw" frameborder="0" width="100%"
+                                    style="height: 395px;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

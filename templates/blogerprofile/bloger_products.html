@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id="shopify-section-template-collection" class="shopify-section">
+        <div data-section-id="template-collection" data-template="collection" data-collection-ajaxed="false"
+             data-product-card-type="type_1" data-pagination-limit="50">
+            <section class="section-content section-collection-grid">
+                <div class="container-fluid container-max-width">
+                    <div class="row">
+                        <div class="col-sm-12"><h1 class="collection-title text-uppercase d-flex align-items-center"><a
+                                href="javascript:history.go(-1)"><i class="material-icons mr-2">arrow_back</i></a>
+                            Bloger Store
+                        </h1></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                {% for foo in blogerproduct %}
+                                    <div class="card-column col-6 col-sm-6 col-md-4 col-lg-3 w-20 my-3 d-flex align-items-stretch justify-content-around">
+                                        <a href="{% url 'bloger:product_detail_p' slug=foo.slug %}"
+                                           class="card border-0 shadow-none card-product text-left">
+                                            {% if foo.sale_on == True %}
+                                                <span class="badges">
+                                                    <span class="badge badge-warning">On Sale</span>
+                                                </span>
+                                            {% endif %}
+                                            <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                                <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                            </div>
+                                            <div class="card-body p-2">
+                                                <div class="row no-gutters">
+                                                    <div class="col-12">
+                                                        <h6 class="vendor mt-2">{{ foo.bloger }}</h6>
+                                                        <h6 class="title my-2">{{ foo.name }}</h6>
+                                                        {% if foo.sale_on == True %}
+                                                            <s class="price m-0 p-0">{{ foo.price }}р.</s>
+                                                            <span class="price m-0 p-0">{{ foo.sale }}р.</span>
+                                                        {% elif foo.sale_on == False %}
+                                                            <span class="price m-0 p-0">{{ foo.price }}р.</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

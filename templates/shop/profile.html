@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block content %}
+    <div id="shopify-section-template-influencer" class="shopify-section">
+        {#        <section data-template="influencer"></section>#}
+        <section class="section-hero ">
+            <div class="carousel tallheight bg-gray-800 flickity-enabled hide-nav-ui" tabindex="0">
+                <div class="flickity-viewport" style="touch-action: pan-y;">
+                    <div class="flickity-slider" style="left: 0px; transform: translateX(0%);">
+                        <div role="treeitem" class="carousel-cell is-selected" style="position: absolute; left: 0%;">
+                            <img data-sizes="auto" src="{{ bloger_profile.general_image.url }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section data-section-id="template-influencer" class="template-influencer section-content">
+            <div class="container-fluid container-max-width">
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav nav-pills nav-fill my-2">
+                            {% for foo in category %}
+                                <li class="nav-item"><a href="{% url 'shop:product_list' bloger_slug=bloger.slug category_slug=foo.slug %}" class="nav-link">{{ foo.name }}</a></li>
+                            {% endfor %}
+
+                            <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="social-wrapper my-3">
+                            <div class="youtube-subscribe d-inline-block">
+                                <div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 122px; height: 24px;"
+                                     id="___ytsubscribe_0">
+                                    <iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0"
+                                            marginwidth="0" scrolling="no"
+                                            style="position: static; top: 0px; width: 122px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;"
+                                            tabindex="0" vspace="0" width="100%" id="I0_1563388655528"
+                                            name="I0_1563388655528"
+                                            src="https://www.youtube.com/subscribe_embed?usegapi=1&amp;channel=DemolitionRanch&amp;channelid=DemolitionRanch&amp;layout=default&amp;count=default&amp;origin=https%3A%2F%2Fwww.bunkerbranding.com&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.ru.STO5NdF3jP4.O%2Fam%3DwQE%2Fd%3D1%2Frs%3DAGLTcCMmRZwQq3wOoQBLpXP4jzoUWyDtmw%2Fm%3D__features__#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh%2Conload&amp;id=I0_1563388655528&amp;_gfid=I0_1563388655528&amp;parent=https%3A%2F%2Fwww.bunkerbranding.com&amp;pfname=&amp;rpctoken=30755093"
+                                            data-gapiattached="true"></iframe>
+                                </div>
+                            </div>
+                            <div class="fb-like a2a_kit a2a_default_style d-inline-block" style="line-height: 16px;"><a
+                                    data-href="https://www.facebook.com/DemolitionRanch"
+                                    class="a2a_button_facebook_like"></a>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true"
+                                    class="twitter-follow-button twitter-follow-button-rendered"
+                                    style="position: static; visibility: visible; width: 172px; height: 28px;"
+                                    title="Twitter Follow Button"
+                                    src="https://platform.twitter.com/widgets/follow_button.940e1bc455d9af25d6ec2f14e90d0d6c.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=DemolitionRanch&amp;show_count=true&amp;show_screen_name=false&amp;size=l&amp;time=1563388654940"
+                                    data-screen-name="DemolitionRanch"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="" id="shirts"></div>
+                {% for fooo in category %}
+                    <div class="row mt-5">
+                        <div class="col-sm-12">
+                            <h2 class="h1 collection-title text-uppercase d-flex align-items-center">
+                                <a href="{% url 'shop:product_list' bloger_slug=bloger.slug category_slug=fooo.slug %}">{{ fooo.name }}</a>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for foo in product %}
+                            {% if fooo.slug == foo.category.slug %}
+
+                                <div class="card-column col-6 col-sm-6 col-md-4 col-lg-3 w-20 my-3 d-flex align-items-stretch justify-content-around">
+                                    <a href="{% url 'shop:product_detail' foo.id %}" class="card border-0 shadow-none card-product text-left">
+                                        {% if foo.sale_on == True %}
+                                            <span class="badges">
+                                <span class="badge badge-warning">On Sale</span>
+                            </span>
+                                        {% endif %}
+                                        <div class="card-img text-center d-flex align-items-center justify-content-center">
+                                            <img src="{{ foo.image.url }}" class="img-fluid lazyloaded">
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <div class="row no-gutters">
+                                                <div class="col-12">
+                                                    <h6 class="vendor mt-2">{{ foo.bloger }}</h6>
+                                                    <h6 class="title my-2">{{ foo.name }}</h6>
+                                                    {% if foo.sale_on == True %}
+                                                        <s class="price m-0 p-0">{{ foo.price }}р.</s>
+                                                        <span class="price m-0 p-0">{{ foo.sale }}р.</span>
+                                                    {% elif foo.sale_on == False %}
+                                                        <span class="price m-0 p-0">{{ foo.price }}р.</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <a href="{% url 'shop:product_list' bloger_slug=bloger.slug category_slug=fooo.slug %}" class="btn btn-primary mt-3 mb-1">View All</a>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+                <div class="row mt-5">
+                    <div class="col">
+                        <h2 class="section-title">
+                            <span>
+                        <img src="{% static 'img/yt.png' %}" height="34" class="mr-3"
+                             style="position: relative; top: -6px;">
+                            </span> MOST RECENT
+                        </h2>
+                        <div class="youtubefeed-wrapper">
+                            <div data-youtube-feed=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="section-about">
+            <div class="container-fluid">
+                <div class="row row-full-width d-flex align-items-center text-white">
+                    <div class="col-12 col-lg-7 col-image bg-img order-1 "
+                         style="background-image: url({{ bloger_profile.bottom_image.url }});">
+                        <div class="overlay-gradient right "></div>
+                    </div>
+                    <div class="col col-text order-2 ">
+                        <div class="inner p-5"><h2 class="title"><span>{{ bloger_profile.name }}</span></h2>
+                            <div class="rte">
+                                <meta charset="utf-8">
+                                <span>{{ bloger_profile.body }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

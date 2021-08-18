@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="shopify-section">
+        <section data-section-id="template-cart" data-template="cart" data-gwp-discount-code="" data-cart-ajaxed="true">
+            <div class="section-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center"><h1 class="page-title">Cart</h1></div>
+                    </div>
+                    {% with totail_items=cart|length %}
+                        {% if cart|length > 0 %}
+                            {% for item in cart %}
+                                {% with product=item.product %}
+                                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-8"><!---->
+                                                <div class="row no-gutters">
+                                                    <div class="col-12 bg-gray-100 px-4 py-3">
+                                                        <h1 class="cart-page-title mt-2 mb-0">Cart</h1>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-cart">
+                                                                <tbody class="bg-white">
+                                                                <tr data-cart-item="" data-variant-id="29502498832429"
+                                                                    class="cart-item">
+                                                                    <td width="150" class="align-middle">
+                                                                        <a href="{{ product.get_absolute_url }}">
+                                                                            <img src="{{ product.image.url }}"
+                                                                                 alt="Deadlifting Is Not A Crime"
+                                                                                 class="img-fluid item-img"></a>
+                                                                    </td>
+                                                                    <td class="align-middle">
+                                                                        <a href="{{ product.get_absolute_url }}"
+                                                                           class="title mr-1">{{ product.name }}</a>
+                                                                        <span class="amount">{{ item.total_price }}</span>
+                                                                        <ul class="list-unstyled">
+                                                                            <li>
+                                                                                <span class="text-muted text-uppercase">- S</span>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div data-qty-container=""
+                                                                             class="quantity-wrapper">
+                                                                            <div class="input-group input-group-sm">
+{#                                                                        <div class="input-group-prepend">#}
+{#                                                                            <a href="{% url "cart:cart_remove" product.id %}" class="input-group-text">#}
+{#                                                                                <span class="btn-decrease">#}
+{#                                                                                    <i class="material-icons">remove</i>#}
+{#                                                                                </span>#}
+{#                                                                            </a>#}
+{#                                                                        </div>#}
+                                                                                {{ item.update_quantity_form.quantity }}
+                                                                                {{ item.update_quantity_form.update }}
+                                                                                <input type="submit" value="Update" class="btn btn-outline-success ml-lg-5">
+{#                                                                        <input type="number" name="updates[]"#}
+{#                                                                               id="updates_29502498832429:732a766b37d4bbc56b6005a156e27a95"#}
+{#                                                                               aria-label="quantity" step="1" min="1"#}
+{#                                                                               inputmode="numeric" data-qty-input=""#}
+{#                                                                               readonly="readonly"#}
+{#                                                                               class="quantity form-control text-center">#}
+{#                                                                        <div class="input-group-append"><a href="#"#}
+{#                                                                                                           rel="nofollow"#}
+{#                                                                                                           aria-label="Increase"#}
+{#                                                                                                           title="Increase"#}
+{#                                                                                                           data-qty-increase=""#}
+{#                                                                                                           class="input-group-text"><span#}
+{#                                                                                class="btn-increase"><i#}
+{#                                                                                class="material-icons">add</i></span></a>#}
+{#                                                                        </div>#}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td width="50" class="align-middle text-right">
+                                                                        <a href="{% url "cart:cart_remove" product.id %}"
+                                                                           title="" name="Remove" aria-label="Remove"
+                                                                           class="lead">
+                                                                            <i class="material-icons">close</i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <a href="/" class="btn btn-info btn-sm">
+                                                                    <i class="icon ion-md-arrow-back"></i> Back To Shop
+                                                                </a>
+                                                            </div>
+                                                        </div>
+{#                                                <div class="row mt-5">#}
+{#                                                    <div class="col-md-6 col-lg-6 ml-right text-left mb-4">#}
+{#                                                        <textarea name="note" rows="5" placeholder="Special instructions for seller" class="form-control"></textarea>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="card bg-gray-100 border-0 shadow-none">
+                                                    <div class="card-body"><h2 class="cart-page-title">Summary</h2>
+                                                        <p class="small font-italic my-3">Shipping, taxes, and discounts
+                                                            calculated at
+                                                            checkout.</p> <!----> <!---->
+                                                        <div class="row my-4">
+                                                            <div class="col"><h5 class="text-subtotal my-0">Total</h5>
+                                                            </div>
+                                                            <div class="col text-right"><h5 class="text-subtotal my-0">
+                                                                <span>{{ item.total_price }}</span></h5></div>
+                                                        </div>
+                                                        <a href="{% url "orders:order_create" %}"
+                                                           class="btn btn-primary btn-block text-uppercase mt-5">Checkout
+                                                            <i class="material-icons">arrow_right_alt</i>
+                                                        </a>
+                                                        <div class="text-center"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                {% endwith %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <p class="lead">Your cart is currently empty.</p>
+                                    <a href="/" class="btn btn-primary text-uppercase">Continue Browsing
+                                        <i class="icon ion-md-arrow-forward"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

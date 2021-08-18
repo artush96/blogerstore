@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section data-template="account" class="section-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-9"><h3 class="text-center mb-3">Order History</h3></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="list-group mb-4 mb-lg-0 sticky-top"><a href="/accounts/profile" name="Order History"
+                                                                       title="Order History" rel="nofollow"
+                                                                       aria-label="Order History"
+                                                                       class="list-group-item"><i
+                            class="icon ion-md-calendar mr-2"></i> Order History
+                    </a> <a href="/accounts/address" name="Your Addresses" title="Your Addresses" rel="nofollow"
+                            aria-label="Your Addresses" class="list-group-item"><i
+                            class="icon ion-md-document mr-2"></i> Your Addresses
+                    </a> <a href="/accounts/logout" name="Log out" title="Log out" rel="nofollow" aria-label="Log out"
+                            class="list-group-item"><i class="icon ion-md-unlock mr-2"></i> Log out
+                    </a></div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="alert alert-warning">
+                        You haven't placed any orders yet.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
